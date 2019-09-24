@@ -53,22 +53,29 @@ class HandGeometry {
     double depth_;           ///< the hand depth (length of fingers)
     double height_;     ///< the hand extends plus/minus this along the hand axis
     double init_bite_;  ///< the minimum object depth to be covered by the fingers
+    double max_depth_;  ///< the maximum depth the hand could move on the object
+    double deepen_step_; ///< the step size of deepening hand from init_bite_ to max_depth_
+
     //
     Parameters()
     : finger_width_(0.0),
       outer_diameter_(0.0),
       depth_(0.0),
       height_(0.0),
-      init_bite_(0.0) {}
+      init_bite_(0.0),
+      max_depth_(0.0),
+      deepen_step_(0.0) {}
 
     Parameters(double finger_width, double outer_diameter,
                double hand_depth, double hand_height,
-               double init_bite)
+               double init_bite, double max_depth, double deepen_step)
     : finger_width_(finger_width),
       outer_diameter_(outer_diameter),
       depth_(hand_depth),
       height_(hand_height),
-      init_bite_(init_bite) {}
+      init_bite_(init_bite),
+      max_depth_(max_depth),
+      deepen_step_(deepen_step){}
   };
 
   /**
@@ -84,9 +91,11 @@ class HandGeometry {
    * \param hand_height the hand height: the hand extends plus/minus this
    * along the hand axis
    * \param init_bite the minimum object depth to be covered by the fingers
+   * \param max_depth the maximum object depth to be covered by the fingers
+   * \param deepen_step the deepening step as fingers moves from init_bite -> max_depth onto object
    */
   HandGeometry(double finger_width, double outer_diameter, double hand_depth,
-               double hand_height, double init_bite);
+               double hand_height, double init_bite, double max_depth, double deepen_step);
 
   /**
    * \brief Constructor that uses a given configuration file to read in the

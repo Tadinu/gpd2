@@ -51,13 +51,18 @@ int DoMain(int argc, char *argv[]) {
       config_file.getValueOfKey<double>("hand_outer_diameter", 0.12);
   hand_geom.params_.depth_ = config_file.getValueOfKey<double>("hand_depth", 0.06);
   hand_geom.params_.height_ = config_file.getValueOfKey<double>("hand_height", 0.02);
-  hand_geom.params_.init_bite_ = config_file.getValueOfKey<double>("init_bite", 0.01);
+  hand_geom.params_.init_bite_   = config_file.getValueOfKey<double>("init_bite", 0.01);
+  hand_geom.params_.max_depth_   = config_file.getValueOfKey<double>("max_depth", 0.05);
+  hand_geom.params_.deepen_step_ = config_file.getValueOfKey<double>("deepen_step",
+                                   (hand_geom.params_.max_depth_ - hand_geom.params_.init_bite_)*0.1);
 
   std::cout << "finger_width: " << hand_geom.params_.finger_width_ << "\n";
   std::cout << "hand_outer_diameter: " << hand_geom.params_.outer_diameter_ << "\n";
   std::cout << "hand_depth: " << hand_geom.params_.depth_ << "\n";
   std::cout << "hand_height: " << hand_geom.params_.height_ << "\n";
   std::cout << "init_bite: " << hand_geom.params_.init_bite_ << "\n";
+  std::cout << "max_depth: " << hand_geom.params_.max_depth_ << "\n";
+  std::cout << "deepen_step: " << hand_geom.params_.deepen_step_ << "\n";
 
   bool voxelize = config_file.getValueOfKey<bool>("voxelize", true);
   bool remove_outliers =

@@ -93,11 +93,12 @@ class FingerHand {
    * \param min_depth the minimum depth that the hand can be moved onto the
    * object
    * \param max_depth the maximum depth that the hand can be moved onto the
+   * \param deepen_step the step that the hand can be moved from min_depth -> max_depth
    * object
    * \return the index of the middle finger placement
    */
   int deepenHand(const Eigen::Matrix3Xd &points, double min_depth,
-                 double max_depth);
+                 double max_depth, double deepen_step);
 
   /**
    * \brief Compute which of the given points are located in the closing region

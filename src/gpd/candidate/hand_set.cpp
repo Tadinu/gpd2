@@ -96,7 +96,8 @@ void HandSet::evalHands(const util::PointList &point_list,
         // Try to move the hand as deep as possible onto the object.
         finger_idx = finger_hand.deepenHand(point_list_cropped.getPoints(),
                                             hand_geometry_.params_.init_bite_,
-                                            hand_geometry_.params_.depth_);
+                                            hand_geometry_.params_.max_depth_,
+                                            hand_geometry_.params_.deepen_step_);
       } else {
         finger_idx = finger_hand.chooseMiddleHand();
       }
