@@ -21,13 +21,13 @@ void Plot::plotHandGeometry(const candidate::Hand &hand,
            image_geom.outer_diameter_, 2.0 * image_geom.height_, "volume",
            vol_rgb);
 
-  Eigen::Vector3d dimensions(hand_geom.depth_, hand_geom.outer_diameter_,
-                             2.0 * hand_geom.height_);
+  Eigen::Vector3d dimensions(hand_geom.params_.depth_, hand_geom.params_.outer_diameter_,
+                             2.0 * hand_geom.params_.height_);
   Eigen::Matrix3d colors;
   colors << 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0;
   Eigen::Vector3d center = hand.getPosition() -
-                           hand_geom.height_ * hand.getAxis() -
-                           0.5 * hand_geom.outer_diameter_ * hand.getBinormal();
+                           hand_geom.params_.height_ * hand.getAxis() -
+                           0.5 * hand_geom.params_.outer_diameter_ * hand.getBinormal();
   std::vector<std::string> labels;
   labels.push_back("hand_depth");
   labels.push_back("hand_outer_diameter");
@@ -35,8 +35,8 @@ void Plot::plotHandGeometry(const candidate::Hand &hand,
   addDimensions(center, hand.getOrientation(), dimensions, colors, labels,
                 viewer);
 
-  Eigen::Vector3d p = center + 2.0 * hand_geom.height_ * hand.getAxis();
-  Eigen::Vector3d q = p + hand_geom.finger_width_ * hand.getBinormal();
+  Eigen::Vector3d p = center + 2.0 * hand_geom.params_.height_ * hand.getAxis();
+  Eigen::Vector3d q = p + hand_geom.params_.finger_width_ * hand.getBinormal();
   addDoubleArrow(p, q, "finger_width", Eigen::Vector3d(0.0, 1.0, 1.0), viewer);
 
   dimensions << image_geom.depth_, -image_geom.outer_diameter_,
@@ -372,8 +372,8 @@ void Plot::plotFingers3D(const std::vector<candidate::Hand> &hand_list,
 void Plot::plotHand3D(PCLVisualizer &viewer, const candidate::Hand &hand,
                       const candidate::HandGeometry &geometry, int idx,
                       const Eigen::Vector3d &rgb) {
-  plotHand3D(viewer, hand, geometry.outer_diameter_, geometry.finger_width_,
-             geometry.depth_, geometry.height_, idx, rgb);
+  plotHand3D(viewer, hand, geometry.params_.outer_diameter_, geometry.params_.finger_width_,
+             geometry.params_.depth_, geometry.params_.height_, idx, rgb);
 }
 
 void Plot::plotHand3D(PCLVisualizer &viewer, const candidate::Hand &hand,

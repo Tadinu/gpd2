@@ -153,10 +153,10 @@ void DataGenerator::generateData() {
           //        "Grasps on view");
           //        plotter.plotFingers3D(candidates,
           //        cloud_cam.getCloudOriginal(), "Grasps on view",
-          //        hand_geom.outer_diameter_,
-          //                                  hand_geom.finger_width_,
-          //                                  hand_geom.depth_,
-          //                                  hand_geom.height_);
+          //        hand_geom.params_.outer_diameter_,
+          //                                  hand_geom.params_.finger_width_,
+          //                                  hand_geom.params_.depth_,
+          //                                  hand_geom.params_.height_);
         }
 
         // 3. Evaluate grasps against ground truth (mesh).

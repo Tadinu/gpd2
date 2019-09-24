@@ -45,19 +45,19 @@ int DoMain(int argc, char *argv[]) {
   util::ConfigFile config_file(argv[1]);
 
   candidate::HandGeometry hand_geom;
-  hand_geom.finger_width_ =
+  hand_geom.params_.finger_width_ =
       config_file.getValueOfKey<double>("finger_width", 0.01);
-  hand_geom.outer_diameter_ =
+  hand_geom.params_.outer_diameter_ =
       config_file.getValueOfKey<double>("hand_outer_diameter", 0.12);
-  hand_geom.depth_ = config_file.getValueOfKey<double>("hand_depth", 0.06);
-  hand_geom.height_ = config_file.getValueOfKey<double>("hand_height", 0.02);
-  hand_geom.init_bite_ = config_file.getValueOfKey<double>("init_bite", 0.01);
+  hand_geom.params_.depth_ = config_file.getValueOfKey<double>("hand_depth", 0.06);
+  hand_geom.params_.height_ = config_file.getValueOfKey<double>("hand_height", 0.02);
+  hand_geom.params_.init_bite_ = config_file.getValueOfKey<double>("init_bite", 0.01);
 
-  std::cout << "finger_width: " << hand_geom.finger_width_ << "\n";
-  std::cout << "hand_outer_diameter: " << hand_geom.outer_diameter_ << "\n";
-  std::cout << "hand_depth: " << hand_geom.depth_ << "\n";
-  std::cout << "hand_height: " << hand_geom.height_ << "\n";
-  std::cout << "init_bite: " << hand_geom.init_bite_ << "\n";
+  std::cout << "finger_width: " << hand_geom.params_.finger_width_ << "\n";
+  std::cout << "hand_outer_diameter: " << hand_geom.params_.outer_diameter_ << "\n";
+  std::cout << "hand_depth: " << hand_geom.params_.depth_ << "\n";
+  std::cout << "hand_height: " << hand_geom.params_.height_ << "\n";
+  std::cout << "init_bite: " << hand_geom.params_.init_bite_ << "\n";
 
   bool voxelize = config_file.getValueOfKey<bool>("voxelize", true);
   bool remove_outliers =

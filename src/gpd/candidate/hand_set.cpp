@@ -53,8 +53,8 @@ void HandSet::evalHands(const util::PointList &point_list,
       Eigen::AngleAxisd(M_PI, Eigen::Vector3d::UnitY()).toRotationMatrix();
 
   // This object is used to evaluate the finger placement.
-  FingerHand finger_hand(hand_geometry_.finger_width_,
-                         hand_geometry_.outer_diameter_, hand_geometry_.depth_,
+  FingerHand finger_hand(hand_geometry_.params_.finger_width_,
+                         hand_geometry_.params_.outer_diameter_, hand_geometry_.params_.depth_,
                          num_finger_placements_);
 
   // Set the forward and lateral axis of the robot hand frame (closing direction
@@ -76,11 +76,11 @@ void HandSet::evalHands(const util::PointList &point_list,
 
     // Crop points on hand height.
     util::PointList point_list_cropped =
-        point_list_frame.cropByHandHeight(hand_geometry_.height_);
+        point_list_frame.cropByHandHeight(hand_geometry_.params_.height_);
 
     // Evaluate finger placements for this orientation.
     finger_hand.evaluateFingers(point_list_cropped.getPoints(),
-                                hand_geometry_.init_bite_);
+                                hand_geometry_.params_.init_bite_);
 
     // Check that there is at least one feasible 2-finger placement.
     finger_hand.evaluateHand();
@@ -95,8 +95,8 @@ void HandSet::evalHands(const util::PointList &point_list,
       if (deepen_hand_) {
         // Try to move the hand as deep as possible onto the object.
         finger_idx = finger_hand.deepenHand(point_list_cropped.getPoints(),
-                                            hand_geometry_.init_bite_,
-                                            hand_geometry_.depth_);
+                                            hand_geometry_.params_.init_bite_,
+                                            hand_geometry_.params_.depth_);
       } else {
         finger_idx = finger_hand.chooseMiddleHand();
       }

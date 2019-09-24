@@ -47,6 +47,30 @@ namespace candidate {
  */
 class HandGeometry {
  public:
+  struct Parameters {
+    double finger_width_;    ///< the width of the robot fingers
+    double outer_diameter_;  ///< the width of the robot hand including fingers
+    double depth_;           ///< the hand depth (length of fingers)
+    double height_;     ///< the hand extends plus/minus this along the hand axis
+    double init_bite_;  ///< the minimum object depth to be covered by the fingers
+    //
+    Parameters()
+    : finger_width_(0.0),
+      outer_diameter_(0.0),
+      depth_(0.0),
+      height_(0.0),
+      init_bite_(0.0) {}
+
+    Parameters(double finger_width, double outer_diameter,
+               double hand_depth, double hand_height,
+               double init_bite)
+    : finger_width_(finger_width),
+      outer_diameter_(outer_diameter),
+      depth_(hand_depth),
+      height_(hand_height),
+      init_bite_(init_bite) {}
+  };
+
   /**
    * \brief Constructor.
    */
@@ -71,11 +95,7 @@ class HandGeometry {
    */
   HandGeometry(const std::string &filepath);
 
-  double finger_width_;    ///< the width of the robot fingers
-  double outer_diameter_;  ///< the width of the robot hand including fingers
-  double depth_;           ///< the hand depth (length of fingers)
-  double height_;     ///< the hand extends plus/minus this along the hand axis
-  double init_bite_;  ///< the minimum object depth to be covered by the fingers
+  Parameters params_;
 };
 
 std::ostream &operator<<(std::ostream &stream,

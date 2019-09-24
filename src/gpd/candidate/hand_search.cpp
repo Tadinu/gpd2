@@ -12,8 +12,8 @@ HandSearch::HandSearch(Parameters params)
   // Calculate radius for nearest neighbor search.
   const HandGeometry &hand_geom = params_.hand_geometry_;
   Eigen::Vector3d hand_dims;
-  hand_dims << hand_geom.outer_diameter_ - hand_geom.finger_width_,
-      hand_geom.depth_, hand_geom.height_ / 2.0;
+  hand_dims << hand_geom.params_.outer_diameter_ - hand_geom.params_.finger_width_,
+      hand_geom.params_.depth_, hand_geom.params_.height_ / 2.0;
   nn_radius_ = hand_dims.maxCoeff();
   antipodal_ =
       std::make_unique<Antipodal>(params.friction_coeff_, params.min_viable_);
@@ -106,9 +106,9 @@ std::vector<int> HandSearch::reevaluateHypotheses(
     if (kdtree.radiusSearch(sample_pcl, nn_radius_, nn_indices, nn_dists) > 0) {
       nn_points = point_list.slice(nn_indices);
       util::PointList nn_points_frame;
-      FingerHand finger_hand(params_.hand_geometry_.finger_width_,
-                             params_.hand_geometry_.outer_diameter_,
-                             params_.hand_geometry_.depth_,
+      FingerHand finger_hand(params_.hand_geometry_.params_.finger_width_,
+                             params_.hand_geometry_.params_.outer_diameter_,
+                             params_.hand_geometry_.params_.depth_,
                              params_.num_finger_placements_);
 
       // Set the lateral and forward axes of the robot hand frame (closing
@@ -194,7 +194,7 @@ bool HandSearch::reevaluateHypothesis(
   util::PointList point_list_frame = point_list.transformToHandFrame(
       hand.getSample(), hand.getFrame().transpose());
   point_list_cropped =
-      point_list_frame.cropByHandHeight(params_.hand_geometry_.height_);
+      point_list_frame.cropByHandHeight(params_.hand_geometry_.params_.height_);
 
   // Check that the finger placement is possible.
   finger_hand.evaluateFingers(point_list_cropped.getPoints(), hand.getTop(),

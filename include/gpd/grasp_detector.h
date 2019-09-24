@@ -65,6 +65,38 @@ namespace gpd {
  */
 class GraspDetector {
  public:
+ struct Parameters {
+    // classification parameters
+    double min_score_;           ///< minimum classifier confidence score
+    bool create_image_batches_;  ///< if images are created in batches (reduces
+                                 /// memory usage)
+
+    // plotting parameters
+    bool plot_normals_;              ///< if normals are plotted
+    bool plot_samples_;              ///< if samples/indices are plotted
+    bool plot_candidates_;           ///< if grasp candidates are plotted
+    bool plot_filtered_candidates_;  ///< if filtered grasp candidates are plotted
+    bool plot_valid_grasps_;         ///< if valid grasps are plotted
+    bool plot_clustered_grasps_;     ///< if clustered grasps are plotted
+    bool plot_selected_grasps_;      ///< if selected grasps are plotted
+
+    // filtering parameters
+    bool cluster_grasps_;  ///< if grasps are clustered
+    double min_aperture_;  ///< the minimum opening width of the robot hand
+    double max_aperture_;  ///< the maximum opening width of the robot hand
+    std::vector<double> workspace_grasps_;  ///< the workspace of the robot with
+                                            /// respect to hand poses
+    bool filter_approach_direction_;
+    Eigen::Vector3d direction_;
+    double thresh_rad_;
+
+    // selection parameters
+    int num_selected_;  ///< the number of selected grasps
+  };
+
+  GraspDetector(const candidate::CandidatesGenerator::Parameters& generator_params,
+                const candidate::HandSearch::Parameters& hand_search_params,
+                const candidate::HandGeometry::Parameters& hand_geometry_params);
   /**
    * \brief Constructor.
    * \param node ROS node handle
@@ -197,32 +229,7 @@ class GraspDetector {
   std::unique_ptr<util::Plot> plotter_;
   std::shared_ptr<net::Classifier> classifier_;
 
-  // classification parameters
-  double min_score_;           ///< minimum classifier confidence score
-  bool create_image_batches_;  ///< if images are created in batches (reduces
-                               /// memory usage)
-
-  // plotting parameters
-  bool plot_normals_;              ///< if normals are plotted
-  bool plot_samples_;              ///< if samples/indices are plotted
-  bool plot_candidates_;           ///< if grasp candidates are plotted
-  bool plot_filtered_candidates_;  ///< if filtered grasp candidates are plotted
-  bool plot_valid_grasps_;         ///< if valid grasps are plotted
-  bool plot_clustered_grasps_;     ///< if clustered grasps are plotted
-  bool plot_selected_grasps_;      ///< if selected grasps are plotted
-
-  // filtering parameters
-  bool cluster_grasps_;  ///< if grasps are clustered
-  double min_aperture_;  ///< the minimum opening width of the robot hand
-  double max_aperture_;  ///< the maximum opening width of the robot hand
-  std::vector<double> workspace_grasps_;  ///< the workspace of the robot with
-                                          /// respect to hand poses
-  bool filter_approach_direction_;
-  Eigen::Vector3d direction_;
-  double thresh_rad_;
-
-  // selection parameters
-  int num_selected_;  ///< the number of selected grasps
+  Parameters params_;
 };
 
 }  // namespace gpd

@@ -53,11 +53,11 @@ int DoMain(int argc, char *argv[]) {
 
   // Hand geometry parameters
   candidate::HandGeometry hand_geom;
-  hand_geom.finger_width_ = 0.01;
-  hand_geom.outer_diameter_ = 0.12;
-  hand_geom.depth_ = 0.06;
-  hand_geom.height_ = 0.02;
-  hand_geom.init_bite_ = 0.01;
+  hand_geom.params_.finger_width_ = 0.01;
+  hand_geom.params_.outer_diameter_ = 0.12;
+  hand_geom.params_.depth_ = 0.06;
+  hand_geom.params_.height_ = 0.02;
+  hand_geom.params_.init_bite_ = 0.01;
   hand_search_params.hand_geometry_ = hand_geom;
 
   // Image parameters
@@ -161,8 +161,8 @@ int DoMain(int argc, char *argv[]) {
   std::cout << "\n";
 
   plot.plotVolumes3D(
-      hands, cloud.getCloudProcessed(), "Volumes", hand_geom.outer_diameter_,
-      hand_geom.finger_width_, hand_geom.depth_, hand_geom.height_,
+      hands, cloud.getCloudProcessed(), "Volumes", hand_geom.params_.outer_diameter_,
+      hand_geom.params_.finger_width_, hand_geom.params_.depth_, hand_geom.params_.height_,
       image_geom.outer_diameter_, image_geom.depth_, image_geom.height_);
 
   plot.plotHandGeometry(hand, cloud.getCloudProcessed(), hand_geom, image_geom);
