@@ -52,7 +52,7 @@ int DoMain(int argc, char *argv[]) {
   hand_geom.params_.depth_ = config_file.getValueOfKey<double>("hand_depth", 0.06);
   hand_geom.params_.height_ = config_file.getValueOfKey<double>("hand_height", 0.02);
   hand_geom.params_.init_bite_   = config_file.getValueOfKey<double>("init_bite", 0.01);
-  hand_geom.params_.max_depth_   = config_file.getValueOfKey<double>("max_depth", 0.05);
+  hand_geom.params_.max_depth_   = config_file.getValueOfKey<double>("max_depth", 0.015);
   hand_geom.params_.deepen_step_ = config_file.getValueOfKey<double>("deepen_step",
                                    (hand_geom.params_.max_depth_ - hand_geom.params_.init_bite_)*0.1);
 

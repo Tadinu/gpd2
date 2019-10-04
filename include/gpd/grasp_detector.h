@@ -93,6 +93,7 @@ class GraspDetector {
     // selection parameters
     int num_selected_;  ///< the number of selected grasps
   };
+  Parameters params_;
 
   GraspDetector(const candidate::CandidatesGenerator::Parameters& generator_params,
                 const candidate::HandSearch::Parameters& hand_search_params,
@@ -228,8 +229,6 @@ class GraspDetector {
   std::unique_ptr<Clustering> clustering_;
   std::unique_ptr<util::Plot> plotter_;
   std::shared_ptr<net::Classifier> classifier_;
-
-  Parameters params_;
 };
 
 }  // namespace gpd

@@ -249,6 +249,12 @@ class Hand {
    */
   int getFingerPlacementIndex() const { return finger_placement_index_; }
 
+/**
+   * \brief Convert an Eigen vector to a string.
+   * \param v the vector
+   * \return the string
+   */
+  std::string vectorToString(const Eigen::VectorXd &v) const;
  private:
   /**
    * \brief Calculate grasp positions (bottom, top, surface).
@@ -256,13 +262,6 @@ class Hand {
    * placement
    */
   void calculateGraspPositions(const FingerHand &finger_hand);
-
-  /**
-   * \brief Convert an Eigen vector to a string.
-   * \param v the vector
-   * \return the string
-   */
-  std::string vectorToString(const Eigen::VectorXd &v) const;
 
   Eigen::Vector3d position_;  ///< grasp position (bottom center of robot hand)
   Eigen::Matrix3d orientation_;  ///< grasp orientation (rotation of robot hand)

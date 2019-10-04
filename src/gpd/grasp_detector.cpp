@@ -64,13 +64,13 @@ GraspDetector::GraspDetector(const candidate::CandidatesGenerator::Parameters& g
   //  view_points << camera_position[0], camera_position[1], camera_position[2];
 
   // Read grasp image parameters.
-  std::string image_geometry_filename = "/home/tad/1_ASCENT/COMPANY/iREX_2019/gpd2/cfg/image_geometry_15channels.cfg";
+  std::string image_geometry_filename = "/home/tad/1_ASCENT/COMPANY/iREX_2019/gpd/cfg/image_geometry_15channels.cfg";
   descriptor::ImageGeometry image_geom(image_geometry_filename);
   std::cout << image_geom;
 
   // Read classification parameters and create classifier.
   std::string model_file;
-  std::string weights_file = "/home/tad/1_ASCENT/COMPANY/iREX_2019/gpd2/models/lenet/15channels/params/";
+  std::string weights_file = "/home/tad/1_ASCENT/COMPANY/iREX_2019/gpd/models/lenet/15channels/params/";
   if (!model_file.empty() || !weights_file.empty()) {
     int device = 0;
     int batch_size = 1;
